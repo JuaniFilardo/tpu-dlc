@@ -1,5 +1,5 @@
 
-#> Trabajo Práctico Único de Diseño de Lenguajes de Consulta.
+# Trabajo Práctico Único de Diseño de Lenguajes de Consulta.
     UTN - FRC - 2017
 <hr>
 
