@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import modulo_indexacion.Libro;
+import modulo_indexacion.Palabra;
 
 /**
  *
@@ -89,6 +90,11 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
 
     }
 
+    /**
+     *
+     * @param libro El libro a buscar en la base.
+     * @return El id del libro, -1 si no existe.
+     */
     public int exist(Libro libro) {
 
         int id = -1;
@@ -123,5 +129,40 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
 
         }
     }
-
+    
+    /**
+     * 
+     * @return La cantidad de libros en la base de datos, a.k.a. N
+     */
+    public int getCantidadDeLibrosBase(){
+         try {
+            try (PreparedStatement st = con.connect.prepareStatement("SELECT COUNT(*) FROM libros"); ResultSet result = st.executeQuery()) {
+                return result.getInt(1);
+            }
+        } catch (SQLException ex) {
+                return 0;
+        }
+    }
+    
+    
+    public int getFrecuenciaPalabra(Palabra palabra, Libro libro) {
+    
+        try {
+            // Obtengo el id del libro a buscar
+            int idLibro = this.exist(libro);
+            // Obtengo el texto con la palabra
+            String textoPalabra = palabra.getTexto();
+            
+            PreparedStatement st = con.connect.prepareStatement("SELECT pxl.frecuencia FROM palabrasxlibro pxl JOIN palabras p ON pxl.idPalabra=p.id WHERE pxl.idLibro=? AND p.descripcion=?");
+            st.setInt(1, idLibro);
+            st.setString(2, textoPalabra);
+            ResultSet result = st.executeQuery();
+            // Devuelvo la frecuencia
+            return result.getInt(1);
+            
+        } catch (SQLException ex) {    
+            return 0;
+        }
+        
+    }
 }

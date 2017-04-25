@@ -133,50 +133,7 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
     return flag ;
 }
 
-/*
-    
-        
-    public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
-        ArrayList<Integer> ids = new ArrayList();
 
-        String sql = "";
-        
-        try {
-            for (int i=0;i < palabras.size();i++) {
-
-                sql += "("+palabras.get(i).getTexto()+")";
-                if (i != palabras.size()-1) sql += ",";
-                
-            
-            }
-
-            PreparedStatement st = con.connect.prepareStatement("INSERT INTO palabras (descripcion) VALUES "+ sql);
-            st.executeUpdate();
-            st = con.connect.prepareStatement("SELECT TOP " + palabras.size() + " id FROM palabras");
-            ResultSet rs = st.executeQuery();
-            while(rs.next()){
-                ids.add(rs.getInt("id"));
-            }
-            rs.close();
-            st.close();
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-            System.out.println(ex.getErrorCode());
-            //Codigo de error de unico = 19
-
-        } finally {
-
-        }
-
-        return ids;
-    }
-
-    
-    
-    
-    
-    
- */
 public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
         ArrayList<Integer> ids = new ArrayList();
         PreparedStatement st; //Codigo de error de unico = 19
@@ -186,17 +143,6 @@ public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
         //ids = obtenerUltimosInsertados(palabras.size(),con);
         return ids;
     }
-
-    /*
-    private ArrayList obtenerUltimosInsertados(int n,Conexion con){
-        ArrayList id;
-        PreparedStatement = con.connect.prepareStatement("SELECT id FROM palabras LIMIT 0,5");
-    
-        
-        //TERMINAR ESTO, EL TEMA PUEDE ESTAR AQUI!!
-        
-    }
-     */
 
     public ArrayList<Palabra> obtenerPal() {
 
@@ -297,6 +243,13 @@ public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
         return id;
     }
 
+    
+    /**
+     * Devuelve la frecuencia de la palabra pasada por parámetro en cada uno de los libros
+     * en donde se encuentra
+     * @param palabra La palabra cuya frecuencia en cada libro se desea conocer.
+     * @return 
+     */
     DefaultTableModel obtenerPalabrasXLibro(String palabra) {
         DefaultTableModel palabras = new DefaultTableModel();   
         palabras.addColumn("Libro");
@@ -318,5 +271,8 @@ public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
 
         return palabras;
     }
+    
+    
+    
 
 }

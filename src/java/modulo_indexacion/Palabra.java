@@ -80,6 +80,49 @@ public class Palabra implements Comparable {
         return this.getTexto().hashCode();
     }
 
+    /**
+     * Calcula el peso que tiene la palabra para el libro pasado por parámetro
+     * @param libro El libro mediante el cual se pesará la palabra
+     * @param frecuenciaPalabra La frecuencia de esa palabra en dicho libro.
+     * Esto se consigue con el método getFrecuenciaPalabra(palabra,libro) de GestorPersistenciaDeLibros.
+     * @param cantLibrosBase La cantidad de libros de la base de datos.
+     * Esto se consigue con el método getCantidadDeLibrosBase() de GestorPersistenciaDeLibros.
+     * @return El peso de la palabra (this)
+     */
+    public double calcularPeso(Libro libro, int frecuenciaPalabra, int cantLibrosBase) {
+        
+        int tf = frecuenciaPalabra;
+        double frecInv = this.calcularFrecuenciaInversa(cantLibrosBase);
+        double modulo = libro.calcularModulo();
+        
+        return (tf*frecInv)/modulo;
+    }
+    
+    /**
+     * Calcula la frecuencia inversa de la palabra. Esto se hace
+     * con el logaritmo del cociente entre la cantidad de documentos
+     * N y la cantidad de documentos donde aparece la palabra.
+     * @param N la cantidad de documentos de la base.
+     * @return frecuencia inversa de this para N documentos.
+     */
+    private double calcularFrecuenciaInversa(int N) {
+        double a = (double) (N/libros);
+        return Math.log(a);
+    }
+    
+    /**
+     * @deprecated Directamente lo sacamos de la base!
+     * Obtiene la frecuencia de la palabra en determinado libro
+     * @param libro El libro en el cual se busca la palabra
+     * @return Un entero que indica la frecuencia de la palabra
+     * @deprecated 
+     */
+    public int getFrecuencia(Libro libro) {
+        // Básicamente hay que contar las veces que this
+        // aparece en el libro
+        return 0;
+    }
+    
     public int getFrecuencia() {
         return frecuencia;
     }
@@ -95,6 +138,4 @@ public class Palabra implements Comparable {
     public void setLibros(int libros) {
         this.libros = libros;
     }
-    
-    
 }

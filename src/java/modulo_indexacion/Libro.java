@@ -78,4 +78,11 @@ public class Libro implements Comparable{
         return gpg.comprobarLibro(descripcion);
     }
 
+    double calcularModulo() {
+        // Se calcula con la raíz cuadrada de la sumatoria de los
+        //  cuadrados de la frecuencia de cada palabra del libro
+        // Esto podríamos ver de hacerlo en GestorPersistenciaDeLibros
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }
