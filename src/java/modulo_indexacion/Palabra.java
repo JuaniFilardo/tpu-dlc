@@ -14,8 +14,7 @@ import java.util.ArrayList;
 public class Palabra implements Comparable {
 
     private String texto;
-    private int frecuencia; //frecuencia en un determinado libro (al momento de cargar se utilizará)
-    private int frecuenciaMaxima; // la máxima frecuencia que tiene esa palabra (no importa ahora en qué libro)
+    private int frecuencia; // frecuencia de la palabra en det libro
     private int libros; //cantidad de libros en los que aparece la palabra
 
     public Palabra(String texto) {
@@ -85,15 +84,16 @@ public class Palabra implements Comparable {
      * @param libro El libro mediante el cual se pesará la palabra
      * @param frecuenciaPalabra La frecuencia de esa palabra en dicho libro.
      * Esto se consigue con el método getFrecuenciaPalabra(palabra,libro) de GestorPersistenciaDeLibros.
-     * @param cantLibrosBase La cantidad de libros de la base de datos.
+     * @param N La cantidad de libros de la base de datos.
      * Esto se consigue con el método getCantidadDeLibrosBase() de GestorPersistenciaDeLibros.
+     * @param al ArrayList de palabras del libro. No es el mejor diseño, sorry :(
      * @return El peso de la palabra (this)
      */
-    public double calcularPeso(Libro libro, int frecuenciaPalabra, int cantLibrosBase) {
+    public double calcularPeso(Libro libro, int frecuenciaPalabra, int N, ArrayList<Palabra> al) {
         
         int tf = frecuenciaPalabra;
-        double frecInv = this.calcularFrecuenciaInversa(cantLibrosBase);
-        double modulo = libro.calcularModulo();
+        double frecInv = this.calcularFrecuenciaInversa(N);
+        double modulo = libro.calcularModulo(al,N);
         
         return (tf*frecInv)/modulo;
     }
@@ -105,7 +105,7 @@ public class Palabra implements Comparable {
      * @param N la cantidad de documentos de la base.
      * @return frecuencia inversa de this para N documentos.
      */
-    private double calcularFrecuenciaInversa(int N) {
+    public double calcularFrecuenciaInversa(int N) {
         double a = (double) (N/libros);
         return Math.log(a);
     }

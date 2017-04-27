@@ -22,7 +22,7 @@ public class GestorPersistenciaGeneral {
         Conexion con = new Conexion();
         con.connect();
         GestorPersistenciaDePalabras gp = new GestorPersistenciaDePalabras(con);
-        DefaultTableModel palabras = gp.obtenerPalabrasXLibro(palabra);
+        DefaultTableModel palabras = gp.obtenerFrecuenciaEnLibroPalabra(palabra);
         con.close();
         return palabras;
     }

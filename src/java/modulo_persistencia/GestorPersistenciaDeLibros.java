@@ -25,22 +25,21 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
     }
 
     public int insertar(Libro libro) {
-        int id=-1 ;//= exist(libro);
+        int id = -1;//= exist(libro);
         try {
-            
+
             //if (id == -1) {
-                PreparedStatement st = con.connect.prepareStatement("INSERT INTO Libros (descripcion) VALUES (?)");
-                st.setString(1, libro.getDescripcion());
-                st.executeUpdate();
-                st = con.connect.prepareStatement("SELECT MAX(id) FROM libros");
-                ResultSet rs = st.executeQuery();
-                rs.next();
-                id = rs.getInt("MAX(id)");
-            
+            PreparedStatement st = con.connect.prepareStatement("INSERT INTO Libros (descripcion) VALUES (?)");
+            st.setString(1, libro.getDescripcion());
+            st.executeUpdate();
+            st = con.connect.prepareStatement("SELECT MAX(id) FROM libros");
+            ResultSet rs = st.executeQuery();
+            rs.next();
+            id = rs.getInt("MAX(id)");
 
             rs.close();
             st.close();
-          //  }
+            //  }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
         } finally {
@@ -48,12 +47,9 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
         }
         return id;
     }
-   
-    
-    
 
     public void borrarLibro(Libro libro) {
-        
+
         try {
             PreparedStatement st = con.connect.prepareStatement("DELETE FROM libros WHERE id = ?");
             st.setInt(1, libro.getId());
@@ -63,7 +59,7 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
         } finally {
 
         }
-       
+
     }
 
     public ArrayList obtener() {
@@ -120,49 +116,109 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
     boolean existeLibro(String nombre) {
 
         try {
-            try (PreparedStatement st = con.connect.prepareStatement("SELECT COUNT(*) FROM libros WHERE descripcion = '" + nombre +"'"); ResultSet result = st.executeQuery()) {
+            try (PreparedStatement st = con.connect.prepareStatement("SELECT COUNT(*) FROM libros WHERE descripcion = '" + nombre + "'"); ResultSet result = st.executeQuery()) {
                 return result.getInt(1) <= 0;
             }
         } catch (SQLException ex) {
-                return false;
+            return false;
         } finally {
 
         }
     }
-    
+
     /**
-     * 
+     *
      * @return La cantidad de libros en la base de datos, a.k.a. N
      */
-    public int getCantidadDeLibrosBase(){
-         try {
+    public int getCantidadDeLibrosBase() {
+        try {
             try (PreparedStatement st = con.connect.prepareStatement("SELECT COUNT(*) FROM libros"); ResultSet result = st.executeQuery()) {
                 return result.getInt(1);
             }
         } catch (SQLException ex) {
-                return 0;
+            return 0;
         }
     }
-    
-    
+
     public int getFrecuenciaPalabra(Palabra palabra, Libro libro) {
-    
+
         try {
             // Obtengo el id del libro a buscar
             int idLibro = this.exist(libro);
             // Obtengo el texto con la palabra
             String textoPalabra = palabra.getTexto();
-            
-            PreparedStatement st = con.connect.prepareStatement("SELECT pxl.frecuencia FROM palabrasxlibro pxl JOIN palabras p ON pxl.idPalabra=p.id WHERE pxl.idLibro=? AND p.descripcion=?");
+
+            PreparedStatement st = con.connect.prepareStatement("SELECT pxl.frecuencia FROM palabraxlibro pxl JOIN palabras p ON pxl.idPalabra=p.id WHERE pxl.idLibro=? AND p.descripcion=?");
             st.setInt(1, idLibro);
             st.setString(2, textoPalabra);
             ResultSet result = st.executeQuery();
             // Devuelvo la frecuencia
             return result.getInt(1);
-            
-        } catch (SQLException ex) {    
+
+        } catch (SQLException ex) {
             return 0;
         }
-        
+
     }
+
+    
+    /**
+     * 
+     * @param libro El libro del cual se quieren obtener las palabras
+     * @return La cantidad de palabras distintas del libro
+     */
+    public int getCantidadPalabrasDistintas(Libro libro) {
+
+        try {
+            // Obtengo el id del libro a buscar
+            int idLibro = this.exist(libro);
+
+            PreparedStatement st = con.connect.prepareStatement("SELECT COUNT(*) FROM palabraXLibro pxl WHERE pxl.idLibro = ?");
+            st.setInt(1, idLibro);
+
+            ResultSet result = st.executeQuery();
+            // Devuelvo la frecuencia
+            return result.getInt(1);
+
+        } catch (SQLException ex) {
+            return 0;
+        }
+
+    }
+
+    /**
+     * @param libro El libro del cual obtenemos las palabras
+     * @return Las palabras que tiene el libro, sin repetir
+     */
+    public ArrayList<Palabra> obtenerPalabrasXLibro(Libro libro) {
+
+        ArrayList<Palabra> palabras = new ArrayList();
+
+        try {
+            
+            int idLibro = this.exist(libro);
+            
+            String sql = "SELECT DISTINCT palabras.descripcion, palabraXLibro.frecuencia,"
+                    + " count(DISTINCT palabraXLibro.idLibro) FROM palabras JOIN"
+                    + " palabraXLibro ON palabras.descripcion=palabraXLibro.palabra"
+                    + " WHERE palabraXLibro.idLibro= " + idLibro + " "
+                    + " GROUP BY palabras.descripcion";
+            
+            try (PreparedStatement st = con.connect.prepareStatement(sql); ResultSet result = st.executeQuery()) {
+                while (result.next()) {
+                    palabras.add(new Palabra(result.getString(1), result.getInt(2), result.getInt(3)));
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (Exception ex) {
+
+        } finally {
+
+        }
+
+        return palabras;
+    }
+
 }

@@ -250,7 +250,7 @@ public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
      * @param palabra La palabra cuya frecuencia en cada libro se desea conocer.
      * @return 
      */
-    DefaultTableModel obtenerPalabrasXLibro(String palabra) {
+    DefaultTableModel obtenerFrecuenciaEnLibroPalabra(String palabra) {
         DefaultTableModel palabras = new DefaultTableModel();   
         palabras.addColumn("Libro");
         palabras.addColumn("Frecuencia");
@@ -258,7 +258,7 @@ public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
             try (PreparedStatement st = con.connect.prepareStatement( "SELECT l.descripcion, p.frecuencia FROM palabraxlibro p, libros l WHERE p.idLibro = l.id and palabra = '"+ palabra + "'"  ); ResultSet result = st.executeQuery()) {
                 while (result.next()){
                     palabras.addRow(new Object[]{result.getString(1),result.getInt(2)});
-                    System.out.println(result.getString(1) + result.getInt(2));
+                    //System.out.println(result.getString(1) + result.getInt(2));
                 }
 
             }
