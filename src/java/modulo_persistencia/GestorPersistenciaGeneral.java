@@ -35,6 +35,15 @@ public class GestorPersistenciaGeneral {
         con.close();
         return palabras;
     }
+    
+    public ArrayList obtenerPalabrasLibro(Libro libro) {
+        Conexion con = new Conexion();
+        con.connect();
+        GestorPersistenciaDeLibros gl = new GestorPersistenciaDeLibros(con);
+        ArrayList palabras = gl.obtenerPalabrasXLibro(libro);
+        con.close();
+        return palabras;
+    }
 
      public ArrayList<Palabra> obtenerPalabrasArray() {
         Conexion con = new Conexion();

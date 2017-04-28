@@ -80,22 +80,19 @@ public class Palabra implements Comparable {
     }
 
     /**
-     * Calcula el peso que tiene la palabra para el libro pasado por parámetro
-     * @param libro El libro mediante el cual se pesará la palabra
-     * @param frecuenciaPalabra La frecuencia de esa palabra en dicho libro.
+     * Calcula el peso que tiene la palabra para una consulta
+     * @param frecuenciaPalabra La frecuencia de esa palabra.
      * Esto se consigue con el método getFrecuenciaPalabra(palabra,libro) de GestorPersistenciaDeLibros.
      * @param N La cantidad de libros de la base de datos.
      * Esto se consigue con el método getCantidadDeLibrosBase() de GestorPersistenciaDeLibros.
-     * @param al ArrayList de palabras del libro. No es el mejor diseño, sorry :(
      * @return El peso de la palabra (this)
      */
-    public double calcularPeso(Libro libro, int frecuenciaPalabra, int N, ArrayList<Palabra> al) {
+    public double calcularPeso(int frecuenciaPalabra, int N) {
         
         int tf = frecuenciaPalabra;
         double frecInv = this.calcularFrecuenciaInversa(N);
-        double modulo = libro.calcularModulo(al,N);
         
-        return (tf*frecInv)/modulo;
+        return (double)(tf*frecInv);
     }
     
     /**
