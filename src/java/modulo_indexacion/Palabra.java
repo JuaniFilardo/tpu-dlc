@@ -16,16 +16,16 @@ public class Palabra implements Comparable {
     private String texto;
     private int frecuencia; // frecuencia de la palabra en det libro
     private int frecuenciaMaxima; // la frecuencia más alta con la que aparece en algún libro, cualquiera sea.
-    private int libros; //cantidad de libros en los que aparece la palabra
+    private int nr; //cantidad de nr en los que aparece la palabra
 
     public Palabra(String texto) {
         this.texto = texto;
     }
 
-    public Palabra(String texto, int frecuencia, int libros) {
+    public Palabra(String texto, int frecuencia, int nr) {
         this.texto = texto;
         this.frecuencia = frecuencia;
-        this.libros = libros;
+        this.nr = nr;
     }
     
 
@@ -35,11 +35,11 @@ public class Palabra implements Comparable {
     }
 
     // Constructor que se usará para el vocabulario
-    public Palabra(String texto, int frecuencia, int frecuenciaMaxima, int libros) {
+    public Palabra(String texto, int frecuencia, int frecuenciaMaxima, int nr) {
         this.texto = texto;
         this.frecuencia = -1; // no interesa esta frecuencia, así que por las dudas...
         this.frecuenciaMaxima = frecuenciaMaxima;
-        this.libros = libros;
+        this.nr = nr;
     }
 
     
@@ -58,7 +58,7 @@ public class Palabra implements Comparable {
 
     public ArrayList<Libro> mostrarLibros() {
         return null;
-    } //Busca en la bd y retorna un arrayList con los libros en donde apareció la
+    } //Busca en la bd y retorna un arrayList con los nr en donde apareció la
     //palabra
 
     //calcularFrecuenciaTotal()
@@ -76,6 +76,7 @@ public class Palabra implements Comparable {
 
     }
 
+    @Override
     public boolean equals (Object objeto){
         if (objeto == null ) return false;
         Palabra palabra = (Palabra)objeto;
@@ -91,8 +92,8 @@ public class Palabra implements Comparable {
      * Calcula el peso que tiene la palabra para una consulta
      * @param frecuenciaPalabra La frecuencia de esa palabra.
      * Esto se consigue con el método getFrecuenciaPalabra(palabra,libro) de GestorPersistenciaDeLibros.
-     * @param N La cantidad de libros de la base de datos.
-     * Esto se consigue con el método getCantidadDeLibrosBase() de GestorPersistenciaDeLibros.
+     * @param N La cantidad de nr de la base de datos.
+ Esto se consigue con el método getCantidadDeLibrosBase() de GestorPersistenciaDeLibros.
      * @return El peso de la palabra (this)
      */
     public double calcularPeso(int frecuenciaPalabra, int N) {
@@ -111,7 +112,7 @@ public class Palabra implements Comparable {
      * @return frecuencia inversa de this para N documentos.
      */
     private double calcularFrecuenciaInversa(int N) {
-        double a = (double) (N/libros);
+        double a = (double) (N/nr);
         return Math.log(a);
     }
     
@@ -123,11 +124,20 @@ public class Palabra implements Comparable {
         this.frecuencia = frecuencia;
     }
 
-    public int getLibros() {
-        return libros;
+    public int getNr() {
+        return nr;
     }
 
-    public void setLibros(int libros) {
-        this.libros = libros;
+    public void setNr(int nr) {
+        this.nr = nr;
     }
+
+    public int getFrecuenciaMaxima() {
+        return frecuenciaMaxima;
+    }
+
+    public void setFrecuenciaMaxima(int frecuenciaMaxima) {
+        this.frecuenciaMaxima = frecuenciaMaxima;
+    }
+    
 }

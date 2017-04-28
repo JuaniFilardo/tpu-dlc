@@ -53,6 +53,8 @@ public class Parser {
             while (sca.hasNext()) { // está tomando siempre false esto. Por alguna razón el Juani del pasado lo deprecó.
 
                 s = sca.next();
+                // Paso a lower case para evitar que considere distintas palabras cuando son iguales.
+                s = s.toLowerCase();
                 // System.out.println(s);
                 for (Character c : s.toCharArray()) {
                     if (Character.isAlphabetic(c)) {
@@ -134,7 +136,7 @@ public class Parser {
 
             while ((s = br.readLine()) != null) {
 
-                ArrayList<String> renglonPalabras = this.parsearRenglon(s);
+                ArrayList<String> renglonPalabras = parsearRenglon(s);
 
                 for (String pal : renglonPalabras) {
 
@@ -174,5 +176,33 @@ public class Parser {
         }
         return renglonPalabras;
     }
+    
+    /**
+     * 
+     * @param s La consulta como String.
+     * @return La misma consulta, pasada a ArrayList y sin caracteres no alfabéticos.
+     */
+     public static ArrayList<Palabra> parsearConsulta(String s) {
 
+        String t = "";
+        ArrayList<Palabra> alConsulta = new ArrayList();
+
+        for (Character c : s.toCharArray()) {
+            
+            if (Character.isAlphabetic(c)) {
+               
+                t += c.toString();
+                
+            } else if (t.length() > 0) {
+                Palabra p = new Palabra(t.toLowerCase());
+                
+                // Para no añadir palabras repetidas.
+                if (!alConsulta.contains(p)) {
+                    alConsulta.add(p); 
+                }
+                t = "";
+            }
+        }
+        return alConsulta;
+    }
 }

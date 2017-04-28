@@ -54,6 +54,15 @@ public class GestorPersistenciaGeneral {
         return palabras;
     }
     
+         public ArrayList<Libro> getPosteo(Palabra palabra) {
+         Conexion con = new Conexion();
+         con.connect();
+         GestorPersistenciaDeLibros gpl = new GestorPersistenciaDeLibros(con);
+         ArrayList<Libro> posteo = gpl.getPosteo(palabra, 5);
+         con.close();
+         return posteo;
+     }
+   
     
     
     public boolean insertarPalabras(Libro libro, ArrayList<Palabra> palabrasNuevas, ArrayList<Palabra> palabrasT,HashSet<Palabra> palabras) throws SQLException {

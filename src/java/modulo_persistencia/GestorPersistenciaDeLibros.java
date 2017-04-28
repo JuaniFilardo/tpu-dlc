@@ -221,4 +221,45 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
         return palabras;
     }
 
+        /**
+         * 
+         * @param palabra La palabra cuyo posteo se desea conocer
+         * @param n Número de libros que retorna la consulta
+         * @return  ArrayList de libros y la frecuencia en cada uno
+         */
+        public ArrayList<Libro> getPosteo(Palabra palabra, int n) {
+
+        try {
+            
+            String sql = "SELECT l.descripcion, pxl.frecuencia FROM "
+                    + "palabraxlibro pxl JOIN libros l ON pxl.idlibro=l.id "
+                    + "WHERE pxl.palabra = ? ORDER BY pxl.frecuencia DESC "
+                    + "LIMIT ?";
+            
+            PreparedStatement st = con.connect.prepareStatement(sql);
+            
+            st.setString(1, palabra.getTexto());
+            st.setInt(2, n);
+
+            ResultSet result = st.executeQuery();
+            ArrayList<Libro> al = new ArrayList();
+
+            while (result.next()) {
+                // La descripcion es el nombre del archivo
+                String descripcion = result.getString(1);
+                // Van a estar guardados en la carpeta libros, dentro de la carpeta del proyecto
+                String ruta = "libros/" + descripcion;
+                Libro libro = new Libro(descripcion, ruta);
+                al.add(libro);
+            }
+            
+            return al;
+
+        } catch (SQLException ex) {
+            return null;
+        }
+
+    }
+    
+    
 }

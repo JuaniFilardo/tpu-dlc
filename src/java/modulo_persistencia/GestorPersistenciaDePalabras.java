@@ -194,7 +194,7 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
 
         try {
 
-            try (PreparedStatement st = con.connect.prepareStatement("SELECT palabras.descripcion, max(palabraXLibro.frecuencia), count(DISTINCT palabraXLibro.idLibro) FROM palabras  JOIN palabraXLibro ON palabras.descripcion=palabraXLibro.palabra GROUP BY palabras.descripcion"); ResultSet result = st.executeQuery()) {
+            try (PreparedStatement st = con.connect.prepareStatement("SELECT palabras.descripcion, palabras.frecMax, count(DISTINCT palabraXLibro.idLibro) FROM palabras  JOIN palabraXLibro ON palabras.descripcion=palabraXLibro.palabra GROUP BY palabras.descripcion"); ResultSet result = st.executeQuery()) {
                 while (result.next()) {
                     palabras.add(new Palabra(result.getString(1), -1, result.getInt(2), result.getInt(3)));
                 }

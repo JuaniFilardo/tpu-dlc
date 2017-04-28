@@ -17,6 +17,7 @@ public class Libro implements Comparable {
     private String descripcion; //puede ser el nombre del archivo, el titulo, etc
     private String ruta; // la ruta del archivo desde donde lo cargamos
     private String encoding;
+    private int peso; // el peso o prioridad del libro en una consulta
     public static final String UTF = "UTF-8";
 
     public Libro(String descripcion, String ruta) {
@@ -24,12 +25,14 @@ public class Libro implements Comparable {
         this.descripcion = descripcion;
         this.ruta = ruta;
         this.encoding = UTF;
+        this.peso = 0;
     }
 
     public Libro(int id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
         this.encoding = UTF;
+        this.peso = 0;
     }
 
     public int getId() {
@@ -60,6 +63,24 @@ public class Libro implements Comparable {
         return descripcion;
     }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    public int getPeso() {
+        return peso;
+    }
+
+    public static String getUTF() {
+        return UTF;
+    }
+
+    
+    
     public void agregarPalabra() {
     } //agrega una palabra a la etructura de datos, en caso de estar repetida, busca la palabra y
     //le suma a la misma la frecuencia
@@ -73,6 +94,13 @@ public class Libro implements Comparable {
     public int compareTo(Object l) {
         Libro li = (Libro) l;
         return this.getDescripcion().compareTo(li.getDescripcion());
+    }
+    
+    public boolean equals (Object objeto){
+        if (objeto == null ) return false;
+        Libro libro = (Libro) objeto;
+        if (this.getDescripcion().equals(libro.getDescripcion())) return true;
+        return false;
     }
 
     public Boolean comprobarExistencia() {
