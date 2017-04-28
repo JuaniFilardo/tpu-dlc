@@ -88,53 +88,43 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
                 stPalXLibro.setInt(2, libro.getId());
                 stPalXLibro.addBatch();
                 j++;
-                if (j == 100000 || it.hasNext() == false ) {
+                if (j == 100000 || it.hasNext() == false) {
                     stPalXLibro.executeBatch();
                 }
             }
-        
-        
 
-        stPalXLibro.close();
+            stPalXLibro.close();
 
-        stUpdatePxL = con.connect.prepareStatement("UPDATE palabraXLibro SET frecuencia=frecuencia+1 WHERE palabra = ? AND idLibro = ?");
+            stUpdatePxL = con.connect.prepareStatement("UPDATE palabraXLibro SET frecuencia=frecuencia+1 WHERE palabra = ? AND idLibro = ?");
 
-        for (int i = 0; i < palabrasT.size(); i++) {
-            stUpdatePxL.setString(1, palabrasT.get(i).getTexto());
-            stUpdatePxL.setInt(2, libro.getId());
-            stUpdatePxL.addBatch();
+            for (int i = 0; i < palabrasT.size(); i++) {
+                stUpdatePxL.setString(1, palabrasT.get(i).getTexto());
+                stUpdatePxL.setInt(2, libro.getId());
+                stUpdatePxL.addBatch();
 
-            if (i == 100000 || i == palabrasT.size() - 1) {
-                stUpdatePxL.executeBatch();
+                if (i == 100000 || i == palabrasT.size() - 1) {
+                    stUpdatePxL.executeBatch();
+
+                }
 
             }
+            stUpdatePxL.close();
 
-        }
-        stUpdatePxL.close();
+            con.commit();
+            flag = true;
 
-        con.commit();
-        flag = true;
-
-    }
-    catch (Exception e
-
-    
-        ) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
-        con.rollback();
-        flag = false;
-    }
-
-    
-        finally {
+            con.rollback();
+            flag = false;
+        } finally {
             con.autoCommit(true);
 
+        }
+        return flag;
     }
-    return flag ;
-}
 
-
-public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
+    public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
         ArrayList<Integer> ids = new ArrayList();
         PreparedStatement st; //Codigo de error de unico = 19
         for (int i = 0; i < palabras.size(); i++) {
@@ -165,38 +155,61 @@ public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
 
         return palabras;
     }
-    
-    
-    
+
+    // guarda, el segundo parámetro devuelve la sumatoria de las frecuencias
     public ArrayList<Palabra> obtener() {
-        
-       ArrayList<Palabra> palabras = new ArrayList();
-    
-       
+
+        ArrayList<Palabra> palabras = new ArrayList();
+
         try {
-           
+
             try (PreparedStatement st = con.connect.prepareStatement("SELECT palabras.descripcion , sum(palabraXLibro.frecuencia), count(DISTINCT palabraXLibro.idLibro) FROM palabras  JOIN palabraXLibro ON palabras.descripcion=palabraXLibro.palabra GROUP BY palabras.descripcion"); ResultSet result = st.executeQuery()) {
-                while (result.next()){
-                    palabras.add(new Palabra (result.getString(1),result.getInt(2),result.getInt(3)));
+                while (result.next()) {
+                    palabras.add(new Palabra(result.getString(1), result.getInt(2), result.getInt(3)));
                 }
 
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-            catch(SQLException e){System.out.println(e.getMessage());}
         } catch (Exception ex) {
 
         } finally {
-          
+
         }
 
         return palabras;
     }
-    
-    
-    
-    
-    
-    
-    
+
+    /**
+     * 
+     * @return Un ArrayList de Palabra, con estos atributos
+     * - descripcion (Columna 1)
+     * - frecuencia en un determinado libro (-1 por defecto, no interesa)
+     * - frecuencia maxima (Columna 2)
+     * - cantidad de libros en los que aparece (Columna 3)
+     */
+    public ArrayList<Palabra> obtenerVocabulario() {
+
+        ArrayList<Palabra> palabras = new ArrayList();
+
+        try {
+
+            try (PreparedStatement st = con.connect.prepareStatement("SELECT palabras.descripcion, max(palabraXLibro.frecuencia), count(DISTINCT palabraXLibro.idLibro) FROM palabras  JOIN palabraXLibro ON palabras.descripcion=palabraXLibro.palabra GROUP BY palabras.descripcion"); ResultSet result = st.executeQuery()) {
+                while (result.next()) {
+                    palabras.add(new Palabra(result.getString(1), -1, result.getInt(2), result.getInt(3)));
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (Exception ex) {
+
+        } finally {
+
+        }
+
+        return palabras;
+    }
 
     public ArrayList<Palabra> buscar(String patron) {
 
@@ -243,36 +256,34 @@ public ArrayList<Integer> insertar(ArrayList<Palabra> palabras) {
         return id;
     }
 
-    
     /**
-     * Devuelve la frecuencia de la palabra pasada por parámetro en cada uno de los libros
-     * en donde se encuentra
+     * Devuelve la frecuencia de la palabra pasada por parámetro en cada uno de
+     * los libros en donde se encuentra
+     *
      * @param palabra La palabra cuya frecuencia en cada libro se desea conocer.
-     * @return 
+     * @return
      */
     DefaultTableModel obtenerFrecuenciaEnLibroPalabra(String palabra) {
-        DefaultTableModel palabras = new DefaultTableModel();   
+        DefaultTableModel palabras = new DefaultTableModel();
         palabras.addColumn("Libro");
         palabras.addColumn("Frecuencia");
         try {
-            try (PreparedStatement st = con.connect.prepareStatement( "SELECT l.descripcion, p.frecuencia FROM palabraxlibro p, libros l WHERE p.idLibro = l.id and palabra = '"+ palabra + "'"  ); ResultSet result = st.executeQuery()) {
-                while (result.next()){
-                    palabras.addRow(new Object[]{result.getString(1),result.getInt(2)});
+            try (PreparedStatement st = con.connect.prepareStatement("SELECT l.descripcion, p.frecuencia FROM palabraxlibro p, libros l WHERE p.idLibro = l.id and palabra = '" + palabra + "'"); ResultSet result = st.executeQuery()) {
+                while (result.next()) {
+                    palabras.addRow(new Object[]{result.getString(1), result.getInt(2)});
                     //System.out.println(result.getString(1) + result.getInt(2));
                 }
 
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
             }
-            catch(SQLException e){System.out.println(e.getMessage());}
         } catch (Exception ex) {
 
         } finally {
-          
+
         }
 
         return palabras;
     }
-    
-    
-    
 
 }

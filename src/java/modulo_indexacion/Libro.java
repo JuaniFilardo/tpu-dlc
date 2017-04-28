@@ -5,7 +5,6 @@
  */
 package modulo_indexacion;
 
-import java.util.ArrayList;
 import modulo_persistencia.GestorPersistenciaGeneral;
 
 /**
@@ -82,6 +81,7 @@ public class Libro implements Comparable {
     }
 
     /**
+     * @deprecated no lo vamos a usar
      * Módulo del libro this. 
      * Se calcula con la raíz cuadrada de la sumatoria de los
      * cuadrados de la frecuencia de cada palabra del libro por
@@ -90,6 +90,7 @@ public class Libro implements Comparable {
      * @param N La cantidad de libros de la base
      * @return 
      */
+    /*
     double calcularModulo(ArrayList<Palabra> al, int N) {
 
         double acum = 0;
@@ -103,5 +104,5 @@ public class Libro implements Comparable {
         }
         return Math.sqrt(acum);
     }
-
+    */
 }

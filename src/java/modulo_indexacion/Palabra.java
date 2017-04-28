@@ -15,12 +15,11 @@ public class Palabra implements Comparable {
 
     private String texto;
     private int frecuencia; // frecuencia de la palabra en det libro
+    private int frecuenciaMaxima; // la frecuencia más alta con la que aparece en algún libro, cualquiera sea.
     private int libros; //cantidad de libros en los que aparece la palabra
 
     public Palabra(String texto) {
-
         this.texto = texto;
-
     }
 
     public Palabra(String texto, int frecuencia, int libros) {
@@ -34,6 +33,15 @@ public class Palabra implements Comparable {
         this.texto = texto;
         this.frecuencia = frecuencia;
     }
+
+    // Constructor que se usará para el vocabulario
+    public Palabra(String texto, int frecuencia, int frecuenciaMaxima, int libros) {
+        this.texto = texto;
+        this.frecuencia = -1; // no interesa esta frecuencia, así que por las dudas...
+        this.frecuenciaMaxima = frecuenciaMaxima;
+        this.libros = libros;
+    }
+
     
  
     public String getTexto() {
@@ -102,22 +110,9 @@ public class Palabra implements Comparable {
      * @param N la cantidad de documentos de la base.
      * @return frecuencia inversa de this para N documentos.
      */
-    public double calcularFrecuenciaInversa(int N) {
+    private double calcularFrecuenciaInversa(int N) {
         double a = (double) (N/libros);
         return Math.log(a);
-    }
-    
-    /**
-     * @deprecated Directamente lo sacamos de la base!
-     * Obtiene la frecuencia de la palabra en determinado libro
-     * @param libro El libro en el cual se busca la palabra
-     * @return Un entero que indica la frecuencia de la palabra
-     * @deprecated 
-     */
-    public int getFrecuencia(Libro libro) {
-        // Básicamente hay que contar las veces que this
-        // aparece en el libro
-        return 0;
     }
     
     public int getFrecuencia() {
