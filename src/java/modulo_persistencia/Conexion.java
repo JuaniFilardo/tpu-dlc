@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class Conexion {
 
-    private String url = "TSB.bd";
+    private String url = "/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/TSB.bd";
     Connection connect;
 
     public void connect() {
@@ -26,13 +26,13 @@ public class Conexion {
             }
         } catch (SQLException ex) {
             System.out.println("No se ha podido conectar con la BD");
+            System.out.println(ex);
         }
     }
 
     public void close() {
         try {
             connect.close();
-            System.out.println("Cerrado");
         } catch (SQLException ex) {
             System.out.println("No cerró");
         }

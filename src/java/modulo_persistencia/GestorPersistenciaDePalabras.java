@@ -139,7 +139,8 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
         ArrayList<Palabra> palabras = new ArrayList();
 
         try {
-            try (PreparedStatement st = con.connect.prepareStatement("SELECT * FROM palabras"); ResultSet result = st.executeQuery()) {
+            try (PreparedStatement st = con.connect.prepareStatement("SELECT * FROM palabras");
+                    ResultSet result = st.executeQuery()) {
 
                 while (result.next()) {
                     Palabra p = new Palabra(result.getString("descripcion").toLowerCase());

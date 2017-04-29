@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package modulo_vectorial;
-
 import arbolAVL.AVLTreeSearch;
 import java.util.ArrayList;
 import modulo_indexacion.Palabra;
@@ -45,7 +44,7 @@ public class Vocabulario {
     public ArrayList<Palabra> getPalabrasConsultaPorRelevancia(ArrayList<Palabra> consulta) {
 
         ArrayList<Palabra> al = new ArrayList();
-
+        
         for (Palabra p : consulta) {
 
             // Vemos si existe la palabra en el vocabulario

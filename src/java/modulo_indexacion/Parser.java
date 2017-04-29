@@ -66,7 +66,7 @@ public class Parser {
                     if (vector.length * 0.9 < i) { //si está al 90%
                         vector = ajustarCapacidad(vector);
                     }
-                    vector[i] = t;
+                    vector[i] = t.toLowerCase();
                     i++;
                     t = "";
                 }
@@ -195,7 +195,6 @@ public class Parser {
                 
             } else if (t.length() > 0) {
                 Palabra p = new Palabra(t.toLowerCase());
-                
                 // Para no añadir palabras repetidas.
                 if (!alConsulta.contains(p)) {
                     alConsulta.add(p); 
@@ -203,6 +202,10 @@ public class Parser {
                 t = "";
             }
         }
+         if (t.length() > 0) {
+             Palabra p = new Palabra(t.toLowerCase());
+             alConsulta.add(p);
+         }
         return alConsulta;
     }
 }

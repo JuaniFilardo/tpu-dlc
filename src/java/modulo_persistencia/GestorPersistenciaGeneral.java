@@ -112,4 +112,22 @@ public class GestorPersistenciaGeneral {
         
         
     }
+    
+    public int obtenerCantidadDocumentosDeBase(){
+        Conexion con = new Conexion();
+        con.connect();
+        GestorPersistenciaDeLibros gl = new GestorPersistenciaDeLibros(con);
+        int cantidadLibros = gl.ObtenerCantidadLibros();
+        con.close();
+        return cantidadLibros;
+    }
+
+    public int getFrecuenciaPalabraEnLibro(Palabra palabra, Libro aThis) {
+        Conexion con = new Conexion();
+        con.connect();
+        GestorPersistenciaDeLibros gl = new GestorPersistenciaDeLibros(con);
+        int frecuencia = gl.getFrecuenciaPalabraEnLibro(palabra, aThis);
+        con.close();
+        return frecuencia;
+    }
 }

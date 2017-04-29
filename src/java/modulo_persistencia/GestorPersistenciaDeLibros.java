@@ -233,13 +233,11 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
             
             String sql = "SELECT l.descripcion, pxl.frecuencia FROM "
                     + "palabraxlibro pxl JOIN libros l ON pxl.idlibro=l.id "
-                    + "WHERE pxl.palabra = ? ORDER BY pxl.frecuencia DESC "
-                    + "LIMIT ?";
+                    + "WHERE pxl.palabra = ? ORDER BY pxl.frecuencia DESC ";
             
             PreparedStatement st = con.connect.prepareStatement(sql);
             
             st.setString(1, palabra.getTexto());
-            st.setInt(2, n);
 
             ResultSet result = st.executeQuery();
             ArrayList<Libro> al = new ArrayList();
@@ -260,6 +258,40 @@ public class GestorPersistenciaDeLibros implements GestorPersistencia<Libro> {
         }
 
     }
+
+    public int ObtenerCantidadLibros() {
+        try {
+            //Obtengo cantidad de libros de la base
+            PreparedStatement st = con.connect.prepareStatement("SELECT COUNT() FROM libros");
+            ResultSet result = st.executeQuery();
+            return result.getInt(1);
+
+        } catch (SQLException ex) {
+            return 0;
+        }
+        
+    }
+
+    public int getFrecuenciaPalabraEnLibro(Palabra palabra, Libro libro) {
+        try {
+            //Obtengo la frecuencia de una palabra en un libro
+
+            PreparedStatement st = con.connect.prepareStatement("SELECT COUNT() FROM palabraxlibro pxl "
+                                                                + "JOIN libros l ON pxl.idLibro = libro.id"
+                                                                + "WHERE palabra = ? AND libro.descripcion = ?");
+            st.setString(1, palabra.getTexto());
+            st.setString(2, libro.getDescripcion());
+            
+                
+            ResultSet result = st.executeQuery();
+            return result.getInt(1);
+
+        } catch (SQLException ex) {
+            return 0;
+        }
+        
+    }
+
     
     
 }

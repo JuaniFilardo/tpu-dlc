@@ -13,10 +13,8 @@
     </head>
     <body>
         <h1>
-            Esta fue su consulta: 
-            <%=request.getAttribute("resultadoConsulta")%>
+            La consulta arrojó estos resultados:
         </h1>
-
-
+            <pre><%=request.getAttribute("resultadoConsulta")%></pre>
     </body>
 </html>

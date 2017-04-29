@@ -5,6 +5,11 @@
  */
 package modulo_indexacion;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import modulo_persistencia.GestorPersistenciaGeneral;
 
 /**
@@ -17,7 +22,8 @@ public class Libro implements Comparable {
     private String descripcion; //puede ser el nombre del archivo, el titulo, etc
     private String ruta; // la ruta del archivo desde donde lo cargamos
     private String encoding;
-    private int peso; // el peso o prioridad del libro en una consulta
+    private String preview; 
+    private double peso; // el peso o prioridad del libro en una consulta
     public static final String UTF = "UTF-8";
 
     public Libro(String descripcion, String ruta) {
@@ -26,6 +32,7 @@ public class Libro implements Comparable {
         this.ruta = ruta;
         this.encoding = UTF;
         this.peso = 0;
+        this.preview = "";
     }
 
     public Libro(int id, String descripcion) {
@@ -67,11 +74,11 @@ public class Libro implements Comparable {
         this.descripcion = descripcion;
     }
 
-    public void setPeso(int peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 
-    public int getPeso() {
+    public double getPeso() {
         return peso;
     }
 
@@ -107,6 +114,32 @@ public class Libro implements Comparable {
         GestorPersistenciaGeneral gpg = new GestorPersistenciaGeneral();
         return gpg.comprobarLibro(descripcion);
     }
+
+    public int getFrecuencia(Palabra palabra) {
+        GestorPersistenciaGeneral gpg = new GestorPersistenciaGeneral();
+        return gpg.getFrecuenciaPalabraEnLibro(palabra, this);
+        
+    }
+
+    public String getPreview() {
+        return preview;
+    }
+
+    public void createPreview() throws FileNotFoundException, IOException {
+        File libro = new File(ruta);
+        FileReader fr = new FileReader(libro);
+        BufferedReader br = new BufferedReader(fr);
+        for (int i = 0; i < 3; i++) {
+            String linea = br.readLine();
+            if(linea.compareTo("") == 0) i--;
+            else {
+                preview += linea;
+                preview += "\n";
+            }
+        }
+    }
+    
+    
 
     /**
      * @deprecated no lo vamos a usar
