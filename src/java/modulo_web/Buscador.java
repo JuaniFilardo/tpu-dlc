@@ -77,25 +77,27 @@ public class Buscador extends HttpServlet {
         
         List<Libro> libros = gc.resolverConsulta(consulta);
         String s = "";
-        String t[] = new String[20];
+        String descripciones[] = new String[libros.size()];
+        String previews[] = new String[libros.size()];
         int i = 0;
         
         for (Libro libro : libros) {
-            s += libro.getDescripcion() + "\n";
-            t[i] = libro.getDescripcion();
-            i++;
+            descripciones[i] = libro.getDescripcion();
            
             try {
                 libro.createPreview();
-                s += libro.getPreview();
+                previews[i] = libro.getPreview();
             } catch (IOException ex) {
                 Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            } finally {
+            i++;                
+            }         
         }
         
         // Seteo el resultadoConsulta con lo que le paso. Este atributo luego
         // lo uso como quiero en el cliente: en un h1, p, tabla, lo que sea
-        request.setAttribute("resultadoConsulta", t);
+        request.setAttribute("resultadoConsulta", descripciones);
+        request.setAttribute("previewsConsulta", previews);
         // Dejo la consulta en el input para que sea más fácil ver lo que se buscó
         request.setAttribute("campoBusqueda", consulta);
         
