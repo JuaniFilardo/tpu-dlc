@@ -23,8 +23,8 @@ import modulo_vectorial.GestorConsulta;
  *
  * @author filardo
  */
-@WebServlet(name = "servletPrueba", urlPatterns = {"/servletPrueba"})
-public class servletPrueba extends HttpServlet {
+@WebServlet(name = "Buscador", urlPatterns = {"/Buscador"})
+public class Buscador extends HttpServlet {
     
     GestorConsulta gc = new GestorConsulta();
 
@@ -96,6 +96,9 @@ public class servletPrueba extends HttpServlet {
         // Seteo el resultadoConsulta con lo que le paso. Este atributo luego
         // lo uso como quiero en el cliente: en un h1, p, tabla, lo que sea
         request.setAttribute("resultadoConsulta", t);
+        // Dejo la consulta en el input para que sea más fácil ver lo que se buscó
+        request.setAttribute("campoBusqueda", consulta);
+        
         // forwardeo la request a otro archivo
         request.getRequestDispatcher("resultados.jsp").forward(request, response);
         

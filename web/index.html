@@ -7,17 +7,16 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="shortcut icon" href="favicon.ico" />
     </head>
     <body class="w3-light-grey">
-        <div class="w3-container">
-         <h1>Buscador</h1>
-        
-        <!-- Este form le hace un request por POST a servletPrueba-->
-        <form action="servletPrueba" method="POST">
-            <input type="text" name="campoBusqueda">
-            <input type="submit" value="Buscar">
-        </form>
-        
+        <div class="w3-container w3-center">
+            <h1>Buscador</h1>
+           <!-- Este form le hace un request por POST a servletPrueba-->
+           <form action="Buscador" method="POST">
+               <input type="text" size="100" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" required>
+               <input type="submit" value="Buscar">
+           </form>
         </div>
     </body>
 </html>
