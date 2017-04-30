@@ -29,7 +29,7 @@ public class Libro implements Comparable {
     public Libro(String descripcion, String ruta) {
         this.id = -1;
         this.descripcion = descripcion;
-        this.ruta = ruta;
+        this.ruta = "http://localhost:8080/tpu-dlc/" + ruta;
         this.encoding = UTF;
         this.peso = 0;
         this.preview = "";

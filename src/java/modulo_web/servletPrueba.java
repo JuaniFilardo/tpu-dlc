@@ -77,26 +77,25 @@ public class servletPrueba extends HttpServlet {
         
         List<Libro> libros = gc.resolverConsulta(consulta);
         String s = "";
-        String t[] = new String[10];
-       
+        String t[] = new String[20];
+        int i = 0;
         
         for (Libro libro : libros) {
             s += libro.getDescripcion() + "\n";
-            libro.createPreview();
-            s += libro.getPreview() + "\n";
+            t[i] = libro.getDescripcion();
+            i++;
            
-            /*try {
+            try {
                 libro.createPreview();
-                System.out.println(libro.getPreview());
-                System.out.println("");
+                s += libro.getPreview();
             } catch (IOException ex) {
                 Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
+            }
         }
         
         // Seteo el resultadoConsulta con lo que le paso. Este atributo luego
         // lo uso como quiero en el cliente: en un h1, p, tabla, lo que sea
-        request.setAttribute("resultadoConsulta", s);
+        request.setAttribute("resultadoConsulta", t);
         // forwardeo la request a otro archivo
         request.getRequestDispatcher("resultados.jsp").forward(request, response);
         
