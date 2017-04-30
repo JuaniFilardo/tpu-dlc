@@ -23,7 +23,7 @@
            <!-- Este form le hace un request por POST a servletPrueba-->
            <form action="Buscador" method="POST">
                <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
-               <input class="w3-button w3-block" type="submit" value="Buscar">
+               <input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">
            </form>
         </div>
         <h3 class="w3-center">La búsqueda de "<%=request.getAttribute("campoBusqueda")%>" arrojó estos resultados:</h3>
