@@ -8,15 +8,49 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
         <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     </head>
     <body class="w3-light-grey">
-        <div class="w3-container w3-center">
-            <h1>Buscador</h1>
-           <!-- Este form le hace un request por POST a servletPrueba-->
-           <form action="Buscador" method="POST">
-               <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
-               <input class="w3-button" type="submit" value="Buscar">
-           </form>
+        <!--Comienza el contenido de la página-->
+        <div class="w3-main">
+            <div class="w3-container w3-center">
+                <h1>Buscador</h1>
+               <!-- Este form le hace un request por POST a servletPrueba-->
+               <form action="Buscador" method="POST">
+                   <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
+                   <input class="w3-button" type="submit" value="Buscar">
+               </form>
+            </div>
+     
+            <div class="w3-clear"></div>
+            
+            <div class="w3-container w3-bottom w3-blue-grey w3-padding-16 w3-hide-small">
+                <div class="w3-row">
+                  <div class="w3-container w3-half">
+                    <i class="w3-right fa fa-code w3-xxlarge"></i>
+                    <!-- <div class="w3-center"> -->
+                        <h5 class="w3-bottombar w3-border-light-blue">Desarrolladores</h5>
+                        <p><b>Agustina Nuñez Moreno</b></p>
+                        <p><b>Juan Ignacio Filardo</b></p>     
+                        <p><b>Agustín Ezequiel García Rampini</b></p>
+                    <!--</div>-->
+                  </div>
+                  <div class="w3-container w3-half">
+                    <i class="w3-right fa fa-coffee w3-xxlarge"></i>
+                    <!--<div class="w3-center">-->
+                        <h5 class="w3-bottombar w3-border-cyan">Proyecto</h5>
+                        <p>Universidad Tecnológica Nacional</p>
+                        <a href="http://www.frc.utn.edu.ar/" target="_blank">Facultad Regional Córdoba</a>
+                        <p>Diseño de Lenguajes de Consulta</p>
+                    <!--</div>-->
+                  </div>
+                </div>
+            </div>
+
+        <!-- Footer -->
+        <footer class="w3-container w3-padding-16 w3-light-grey"></footer>
+            
+        <!--Fin del contenido de la página-->
         </div>
     </body>
 </html>
