@@ -6,8 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="spinner.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
         <link rel="shortcut icon" href="favicon.ico" />
+        <script src="app.js"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     </head>
     <body class="w3-light-grey">
@@ -17,13 +20,24 @@
                 <div style="margin-top: 5%">
                     <h1>Bookiepedia</h1>
                 </div>
-                <div style="margin-top: 8%; margin-left: 15%; margin-right: 15%">
+                <div id="formHolder" style="margin-top: 8%; margin-left: 15%; margin-right: 15%">
                    <!-- Este form le hace un request por POST a servletPrueba-->
-                   <form action="Buscador" method="POST">
+                   <form action="Buscador" method="POST" onsubmit="showSpinner()">
                        <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
-                       <input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">
+                       <!--<input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">-->
                    </form>
                </div>
+                <div id="spinnerHolder" class="sk-cube-grid" style="display:none">
+                        <div class="sk-cube sk-cube1"></div>
+                        <div class="sk-cube sk-cube2"></div>
+                        <div class="sk-cube sk-cube3"></div>
+                        <div class="sk-cube sk-cube4"></div>
+                        <div class="sk-cube sk-cube5"></div>
+                        <div class="sk-cube sk-cube6"></div>
+                        <div class="sk-cube sk-cube7"></div>
+                        <div class="sk-cube sk-cube8"></div>
+                        <div class="sk-cube sk-cube9"></div>
+                </div>
             </div>
      
             <div class="w3-clear"></div>

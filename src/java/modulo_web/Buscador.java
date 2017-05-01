@@ -7,7 +7,6 @@ package modulo_web;
 
 import Testing.Testing;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,10 +72,9 @@ public class Buscador extends HttpServlet {
         
         // Obtengo el parámetro del recurso campoBusqueda, lo guardo en un String
         String consulta = request.getParameter("campoBusqueda");
-       
+        consulta = this.limpiarConsulta(consulta);
         
         List<Libro> libros = gc.resolverConsulta(consulta);
-        String s = "";
         String descripciones[] = new String[libros.size()];
         String previews[] = new String[libros.size()];
         int i = 0;
@@ -99,7 +97,7 @@ public class Buscador extends HttpServlet {
         request.setAttribute("resultadoConsulta", descripciones);
         request.setAttribute("previewsConsulta", previews);
         // Dejo la consulta en el input para que sea más fácil ver lo que se buscó
-        request.setAttribute("campoBusqueda", consulta);
+        request.setAttribute("consulta", consulta);
         
         // forwardeo la request a otro archivo
         request.getRequestDispatcher("resultados.jsp").forward(request, response);
@@ -117,5 +115,30 @@ public class Buscador extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    /**
+     * 
+     * @param consulta La consulta a limpiar. Evita que se realice un
+     * ataque XSS desde el campo de búsqueda.
+     * @return 
+     */
+    private String limpiarConsulta(String consulta){
+    
+        String consultaLimpia = "";
+        String s = "";
+        
+        for (Character c : consulta.toCharArray()) {
+            if (Character.isAlphabetic(c)) {
+                s += c.toString();
+            } else if (s.length() > 0) {
+                consultaLimpia += s + " ";
+                s = "";
+            }
+        }
+        // Para no perder la última palabra
+        consultaLimpia += s;
+        
+        return consultaLimpia;
+    }
 
 }

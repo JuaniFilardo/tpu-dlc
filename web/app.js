@@ -27,3 +27,12 @@
         $('#'+nombre).text("");
         $('#'+nombre).append("<a href='" + ruta +"' target='_blank'>" + nombreArchivo + "</a>");
     }
+    
+    /**
+     * 
+     * @returns {undefined} muestra el spinner mientras se cargan los resultados
+     */
+    function showSpinner() {
+        $('#formHolder').hide();
+        $('#spinnerHolder').show();
+    }
