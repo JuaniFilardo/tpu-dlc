@@ -97,8 +97,7 @@ public class Buscador extends HttpServlet {
         request.setAttribute("resultadoConsulta", descripciones);
         request.setAttribute("previewsConsulta", previews);
         // Dejo la consulta en el input para que sea más fácil ver lo que se buscó
-        request.setAttribute("consulta", consulta);
-        
+        request.setAttribute("textoConsulta", consulta);
         // forwardeo la request a otro archivo
         request.getRequestDispatcher("resultados.jsp").forward(request, response);
         

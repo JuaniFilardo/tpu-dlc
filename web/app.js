@@ -12,7 +12,7 @@
     * @returns {undefined}
     */
     function showPreview (nombre,preview) {
-        $('#'+nombre).append("<p class='preview'>" + preview + "</p>");
+        $('#'+nombre).append("<p class='preview'> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua " + preview + "</p>");
     }   
 
     /**
@@ -25,7 +25,7 @@
         nombreArchivo = nombre + ".txt";
         ruta = "localhost:8080/tpu-dlc/libros/" + nombreArchivo;
         $('#'+nombre).text("");
-        $('#'+nombre).append("<a href='" + ruta +"' target='_blank'>" + nombreArchivo + "</a>");
+        $('#'+nombre).append("<i class='fa fa-angle-right'>&nbsp;</i><a href='" + ruta +"' target='_blank'><b>" + nombreArchivo + "</b></a>");
     }
     
     /**
@@ -34,5 +34,7 @@
      */
     function showSpinner() {
         $('#formHolder').hide();
+        $('#busqueda').hide();
+        $('#resultadosHolder').hide();
         $('#spinnerHolder').show();
     }

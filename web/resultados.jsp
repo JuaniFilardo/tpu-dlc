@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="spinner.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
         <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
         <script src="app.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         
@@ -21,9 +22,9 @@
     </head>
     <body class="w3-light-grey">
         <div class="w3-container w3-center">
-            <h1>Bookiepedia</h1>
+            <h1><a href="index.html" class="w3-padding" target="_self">Bookieepedia</a></h1>
            <!-- Este form le hace un request por POST a servletPrueba-->
-           <form action="Buscador" method="POST">
+           <form action="Buscador" method="POST" onsubmit="showSpinner()">
                <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
                <!--<input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">-->
            </form>
@@ -32,12 +33,11 @@
         <% String s[] = (String [])request.getAttribute("resultadoConsulta");%>
         <% String t[] = (String [])request.getAttribute("previewsConsulta");%>
         <% String foo = " arrojó los siguientes resultados:";%>
-        <% String margen = "0%";%>
+        <% String margen = "1%";%>
         <% // De este modo muestro un mensaje más acorde cuando no hay ningún resultado%>
-        <% if (s.length == 0) { foo = " no produjo ningún resultado."; margen = "15%";}%>
+        <% if (s.length == 0) { foo = " no produjo ningún resultado :("; margen = "15%";}%>
         
-        <h3 class="w3-center" style="margin:<%=margen%>">La búsqueda de "<%=request.getAttribute("consulta")%>"<%=foo%></h3><br
-            
+        <h3 id="busqueda" class="w3-center" style="margin:<%=margen%>">La búsqueda de <b><%=request.getAttribute("textoConsulta")%></b><%=foo%></h3><br>
             <div id="resultadosHolder" class="w3-full">
                 <div class="w3-container">
                     <div class="w3-half">
@@ -49,8 +49,7 @@
                             <% String preview = t[i];%>
                             <%String ruta = "localhost:8080/tpu-dlc/libros/" + s[i];%>
                             <li id="<%=nombre%>" onmouseover="showPreview('<%=nombre%>','<%=preview%>')" onmouseout="hidePreview('<%=nombre%>')">
-                                <a href=<%=ruta%> target="_blank"><%=s[i]%></a>
-                                <p></p>
+                                <i class="fa fa-angle-right">&nbsp;</i><a href=<%=ruta%> target="_blank"><b><%=s[i]%></b></a>
                             </li>
                             <%}%>
                         <%}%>
@@ -66,12 +65,24 @@
                             <% String preview = t[i];%>
                             <%String ruta = "localhost:8080/tpu-dlc/libros/" + s[i];%>
                             <li id="<%=nombre%>" onmouseover="showPreview('<%=nombre%>','<%=preview%>')" onmouseout="hidePreview('<%=nombre%>')">
-                                <a href=<%=ruta%> target="_blank"><%=s[i]%></a>
+                                <i class="fa fa-angle-right">&nbsp;</i><a href=<%=ruta%> target="_blank"><b><%=s[i]%></b></a>
                             </li>
                             <%}%>
                         <%}%>
                         </ul>
                     </div>
                 </div>
+            </div>
+                <div id="spinnerHolder" class="sk-cube-grid" style="display:none">
+                    <div class="sk-cube sk-cube1"></div>
+                    <div class="sk-cube sk-cube2"></div>
+                    <div class="sk-cube sk-cube3"></div>
+                    <div class="sk-cube sk-cube4"></div>
+                    <div class="sk-cube sk-cube5"></div>
+                    <div class="sk-cube sk-cube6"></div>
+                    <div class="sk-cube sk-cube7"></div>
+                    <div class="sk-cube sk-cube8"></div>
+                    <div class="sk-cube sk-cube9"></div>
+                </div>        
     </body>
 
