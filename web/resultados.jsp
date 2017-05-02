@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : resultados
     Created on : 18-Apr-2017, 16:36:13
     Author     : filardo
@@ -17,27 +17,34 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
         <script src="app.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        
-        <title>Resultados</title>
+
+        <title>Bookipedia - Resultados</title>
     </head>
     <body class="w3-light-grey">
         <div class="w3-container w3-center">
-            <h1><a href="index.html" class="w3-padding" target="_self">Bookieepedia</a></h1>
-           <!-- Este form le hace un request por POST a servletPrueba-->
-           <form action="Buscador" method="POST" onsubmit="showSpinner()">
-               <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
-               <!--<input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">-->
-           </form>
+            <div class="w3-container w3-center w3-hide-small">
+                <a href="index.html" target="_self"><img src="Bookipedia.png" class="w3-padding w3-image" alt="logo2" style="max-width: 25%; max-height: 25%"/></a>
+            </div>
+            <div class="w3-container w3-center w3-hide-large w3-hide-medium">
+                <h4><a href="index.html" target="_self">Bookipedia</a></h4>
+            </div>
+                <div id="formHolder" style="margin-left: 0%; margin-right: 0%">
+                <!-- Este form le hace un request por POST a servletPrueba-->
+                <form action="Buscador" method="POST" onsubmit="showSpinner()">
+                    <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
+                    <!--<input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">-->
+                </form>
+           </div>
         </div>
-                                                       
+
         <% String s[] = (String [])request.getAttribute("resultadoConsulta");%>
         <% String t[] = (String [])request.getAttribute("previewsConsulta");%>
         <% String foo = " arrojó los siguientes resultados:";%>
-        <% String margen = "1%";%>
+        <% String margen = "2%";%>
         <% // De este modo muestro un mensaje más acorde cuando no hay ningún resultado%>
         <% if (s.length == 0) { foo = " no produjo ningún resultado :("; margen = "15%";}%>
-        
-        <h3 id="busqueda" class="w3-center" style="margin:<%=margen%>">La búsqueda de <b><%=request.getAttribute("textoConsulta")%></b><%=foo%></h3><br>
+
+        <h4 id="busqueda" class="w3-center" style="margin:<%=margen%>">La búsqueda de <b><%=request.getAttribute("textoConsulta")%></b><%=foo%></h4><br>
             <div id="resultadosHolder" class="w3-full">
                 <div class="w3-container">
                     <div class="w3-half">
@@ -47,9 +54,12 @@
                             <% if (s[i] != null) {%>
                             <% String nombre = s[i].substring(0, s[i].length()-4);%>
                             <% String preview = t[i];%>
-                            <%String ruta = "localhost:8080/tpu-dlc/libros/" + s[i];%>
+                            <%String ruta = "libros/" + s[i];%>
+                            
+                            
                             <li id="<%=nombre%>" onmouseover="showPreview('<%=nombre%>','<%=preview%>')" onmouseout="hidePreview('<%=nombre%>')">
-                                <i class="fa fa-angle-right">&nbsp;</i><a href=<%=ruta%> target="_blank"><b><%=s[i]%></b></a>
+                                <i class="fa fa-book">&nbsp;</i><a href="<%=ruta%>" target="_blank"><b><%=nombre%></b></a>
+                                <a href=<%=ruta%> download="<%=ruta%>" target="_blank"><i class="fa fa-download w3-right"></i></a>
                             </li>
                             <%}%>
                         <%}%>
@@ -63,9 +73,10 @@
                             <!-- Hago esto para no tener problema con los nombres, que tienen un punto entre medio-->
                             <% String nombre = s[i].substring(0, s[i].length()-4);%>
                             <% String preview = t[i];%>
-                            <%String ruta = "localhost:8080/tpu-dlc/libros/" + s[i];%>
+                            <%String ruta = "libros/" + s[i];%>
                             <li id="<%=nombre%>" onmouseover="showPreview('<%=nombre%>','<%=preview%>')" onmouseout="hidePreview('<%=nombre%>')">
-                                <i class="fa fa-angle-right">&nbsp;</i><a href=<%=ruta%> target="_blank"><b><%=s[i]%></b></a>
+                                <i class="fa fa-book">&nbsp;</i><a href="<%=ruta%>" target="_blank"><b><%=nombre%></b></a>
+                                <a href=<%=ruta%> download="<%=ruta%>" target="_blank"><i class="fa fa-download w3-right"></i></a>
                             </li>
                             <%}%>
                         <%}%>
@@ -83,6 +94,5 @@
                     <div class="sk-cube sk-cube7"></div>
                     <div class="sk-cube sk-cube8"></div>
                     <div class="sk-cube sk-cube9"></div>
-                </div>        
+                </div>                                  
     </body>
-

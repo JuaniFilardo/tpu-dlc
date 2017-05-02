@@ -12,7 +12,7 @@
     * @returns {undefined}
     */
     function showPreview (nombre,preview) {
-        $('#'+nombre).append("<p class='preview'> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua " + preview + "</p>");
+        $('#'+nombre).append("<p class='preview'>" + preview + "</p>");
     }   
 
     /**
@@ -23,11 +23,14 @@
      */
     function hidePreview(nombre) {
         nombreArchivo = nombre + ".txt";
-        ruta = "localhost:8080/tpu-dlc/libros/" + nombreArchivo;
+        ruta = "libros/" + nombreArchivo;
         $('#'+nombre).text("");
-        $('#'+nombre).append("<i class='fa fa-angle-right'>&nbsp;</i><a href='" + ruta +"' target='_blank'><b>" + nombreArchivo + "</b></a>");
+        $('#'+nombre).append("<i class='fa fa-book'>&nbsp;<a href='" + ruta +"' target='_blank'><b>" + nombre + "</b></a>");
+        $('#'+nombre).append("<a href='" + ruta +"' download='" + ruta + "' target='_blank'><i class='fa fa-download w3-right'></i></a>");
+        
+        //$('#'+nombre).css("font-family","Raleway");
     }
-    
+   
     /**
      * 
      * @returns {undefined} muestra el spinner mientras se cargan los resultados

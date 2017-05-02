@@ -15,8 +15,16 @@ import java.sql.SQLException;
  */
 public class Conexion {
 
-    private String url = "/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/TSB.bd";
+    private String url;
     Connection connect;
+
+    public Conexion() {
+        url = "TSB.bd";
+    }
+    
+    Conexion(String rutaDB) {
+        url = rutaDB;
+    }
 
     public void connect() {
         try {

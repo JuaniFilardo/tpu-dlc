@@ -8,6 +8,7 @@ package modulo_persistencia;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -31,7 +32,7 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
 
         int id = -1;
         try {
-            PreparedStatement st = con.connect.prepareStatement("INSERT INTO palabras (descripcion) VALUES (?)");
+            PreparedStatement st = con.connect.prepareStatement("INSERT INTO palabras VALUES(?,1)");
             st.setString(1, palabra.getTexto());
             st.executeUpdate();
             st = con.connect.prepareStatement("SELECT MAX(id) FROM palabras");
@@ -62,7 +63,7 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
             PreparedStatement stPalXLibro;
 
             //stPalXLibro = con.connect.prepareStatement("INSERT INTO palabraXLibro VALUES (?,?, 1)");
-            stPalabra = con.connect.prepareStatement("INSERT INTO palabras VALUES(?)");
+            stPalabra = con.connect.prepareStatement("INSERT INTO palabras VALUES(?,1)");
 
             for (int i = 0; i < palabrasNuevas.size(); i++) {
                 stPalabra.setString(1, palabrasNuevas.get(i).getTexto());
@@ -139,7 +140,7 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
         ArrayList<Palabra> palabras = new ArrayList();
 
         try {
-            try (PreparedStatement st = con.connect.prepareStatement("SELECT * FROM palabras");
+            try (PreparedStatement st = con.connect.prepareStatement("SELECT descripcion FROM palabras");
                     ResultSet result = st.executeQuery()) {
 
                 while (result.next()) {
@@ -286,5 +287,10 @@ public class GestorPersistenciaDePalabras implements GestorPersistencia<Palabra>
 
         return palabras;
     }
-
+    
+    public void actualizarFrecuencias() throws SQLException {
+        PreparedStatement actualizacion = con.connect.prepareStatement("UPDATE palabras SET frecMax = (select MAX(frecuencia) from palabraxlibro where palabra = palabras.descripcion GROUP BY palabra)");
+        actualizacion.executeUpdate();
+        actualizacion.close();
+    }
 }

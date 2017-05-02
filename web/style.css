@@ -8,6 +8,65 @@ and open the template in the editor.
     Author     : filardo
 */
 
-html,body,h1,h2,h3,h4,h5,a {font-family: "Raleway", sans-serif}
+html,body,h1,h2,h3,h4,h5,b {font-family: "Raleway"}
+a {font-family: "Raleway"; text-decoration: none}
+img[alt=Logo2]{
+    margin-top: 25px;
+}
 
-a {text-decoration: none}
+input[type=text] {
+/*    margin-top: 5%;*/
+/*    background-color: white;
+    color: black;
+    background-color: #f3e6ff;
+    border: 2px solid #2F0B3A; */
+    text-align: center;
+}
+
+
+/*prev {font-size: 15px;
+      color: white}
+img {;
+     margin-top: 1.5em;
+     margin-bottom: .5em;
+     margin-left: 1em;
+     margin-right: .5em;
+}
+
+img[alt=Logo]{
+    margin-top: 150px;
+}
+body{
+    background-image: url("prueba.jpg");
+    background-size:cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+}
+li {
+    margin-left: 50px;
+}
+
+input[type=submit] {
+    margin-top: 1.5em;
+    background-color: #2F0B3A; 
+    border: 2px solid #ffffff; 
+    color: white;
+    padding: 10px 18px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    border-radius: 8px;
+    border-color: white;
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+
+
+ul{
+    background-color: rgba(0, 0, 0, 0.5);
+}*/
+
+

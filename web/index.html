@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Buscador</title>
+        <title>Bookipedia</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -17,16 +17,10 @@
         <!--Comienza el contenido de la página-->
         <div class="w3-main">
             <div class="w3-container w3-center">
-                <div style="margin-top: 5%">
-                    <h1>Bookieepedia</h1>
+                <div style="margin-top: 10%">
+                    <img src="Bookipedia.png" alt="logo" class="w3-padding w3-image" style="max-width: 50%; max-height: 50%"/>
                 </div>
-                <div id="formHolder" style="margin-top: 8%; margin-left: 15%; margin-right: 15%">
-                   <!-- Este form le hace un request por POST a servletPrueba-->
-                   <form action="Buscador" method="POST" onsubmit="showSpinner()">
-                       <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
-                       <!--<input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">-->
-                   </form>
-               </div>
+                
                 <div id="spinnerHolder" class="sk-cube-grid" style="display:none">
                         <div class="sk-cube sk-cube1"></div>
                         <div class="sk-cube sk-cube2"></div>
@@ -38,6 +32,14 @@
                         <div class="sk-cube sk-cube8"></div>
                         <div class="sk-cube sk-cube9"></div>
                 </div>
+                
+                <div id="formHolder" style="margin-top: 20px; margin-left: 15%; margin-right: 15%; margin-bottom: 1%">
+                   <!-- Este form le hace un request por POST a servletPrueba-->
+                   <form action="Buscador" method="POST" onsubmit="showSpinner()">
+                       <input class="w3-input" type="text" placeholder="Ingrese aquí su búsqueda..." name="campoBusqueda" autofocus required>
+                       <!--<input class="w3-button w3-hover-blue-grey w3-block w3-xlarge" type="submit" value="Buscar">-->
+                   </form>
+               </div>
             </div>
      
             <div class="w3-clear"></div>
@@ -65,9 +67,9 @@
                 </div>
             </div>
 
-        <!-- Footer -->
+        <!-- Footer 
         <footer class="w3-container w3-padding-16 w3-light-grey"></footer>
-            
+            -->
         <!--Fin del contenido de la página-->
         </div>
     </body>

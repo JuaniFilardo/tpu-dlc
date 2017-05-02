@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/src/java/Testing/Testing.java</file>
-            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/src/java/modulo_vectorial/Vocabulario.java</file>
-            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/src/java/modulo_indexacion/Parser.java</file>
-            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/src/java/modulo_indexacion/Palabra.java</file>
-            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/src/java/modulo_indexacion/Libro.java</file>
-            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/src/java/modulo_vectorial/gestorConsulta.java</file>
+            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/web/resultados.jsp</file>
+            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/web/index.html</file>
+            <file>file:/home/filardo/UTN/Cuarto_Año/DLC/TPU/tpu-dlc/src/java/modulo_web/Buscador.java</file>
         </group>
     </open-files>
 </project-private>

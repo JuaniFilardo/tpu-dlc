@@ -84,7 +84,9 @@ public class Buscador extends HttpServlet {
            
             try {
                 libro.createPreview();
-                previews[i] = libro.getPreview();
+                // escapo las comillas simples para no tener problemas del lado de JS
+                previews[i] = this.escaparComillas(libro.getPreview());
+                System.out.println(libro.getPreview());
             } catch (IOException ex) {
                 Logger.getLogger(Testing.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
@@ -138,6 +140,28 @@ public class Buscador extends HttpServlet {
         consultaLimpia += s;
         
         return consultaLimpia;
+    }
+
+    /**
+     * Escapa las comillas simples (') para no tener problemas cuando
+     * se pasa por parámetro una preview a una función JavaScript.
+     * JS interpreta la comilla como fin del parámetro, ocasionando un
+     * error al querer mostrar las previews.
+     * @param preview La preview que vamos a limpiar de comillas
+     * @return La preview con las comillas escapadas.
+     */
+    private String escaparComillas(String preview) {
+        
+        String previewLimpia = "";
+        
+        for (Character c : preview.toCharArray()) {
+            if (c.toString().equalsIgnoreCase("\'")) {
+                previewLimpia += "\\'";
+            } else {
+                previewLimpia += c;
+            }
+        }
+        return previewLimpia;
     }
 
 }

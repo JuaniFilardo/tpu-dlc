@@ -130,4 +130,46 @@ public class GestorPersistenciaGeneral {
         con.close();
         return frecuencia;
     }
+
+    public boolean insertarPalabras(Libro libro, ArrayList<Palabra> palabrasNuevas, ArrayList<Palabra> palabrasT, HashSet<Palabra> palabras, String rutaDB) {
+        boolean flag = false;
+        Conexion con = new Conexion(rutaDB);
+        
+        try{
+            con.connect();
+          
+            
+           
+            GestorPersistenciaDeLibros gpl = new GestorPersistenciaDeLibros(con);
+            if ( gpl.exist(libro) != -1) return false;
+            int idLibro = gpl.insertar(libro);
+            libro.setId(idLibro);
+            
+            
+            GestorPersistenciaDePalabras gp = new GestorPersistenciaDePalabras(con);
+            System.out.println(libro.getId());
+            flag = gp.insertar(libro, palabrasNuevas, palabrasT, palabras);
+            
+            if (!flag) {
+                gpl.borrarLibro(libro);
+            }
+            
+        }
+        catch(Exception e){
+            
+        }
+        finally {
+            con.close();
+        }
+        return flag;
+    }
+
+
+    public void updateFrecuencias(String rutaDB) throws SQLException {
+        Conexion con = new Conexion(rutaDB);
+        con.connect();
+        GestorPersistenciaDePalabras gp = new GestorPersistenciaDePalabras(con);
+        gp.actualizarFrecuencias();
+        con.close();
+    }
 }

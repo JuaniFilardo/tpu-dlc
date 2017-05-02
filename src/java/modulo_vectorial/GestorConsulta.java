@@ -63,7 +63,7 @@ public class GestorConsulta {
             }
         }
         try{
-            return resultadoConsulta.subList(0, 20);
+            return resultadoConsulta.subList(0, 16);
         }
         catch(Exception e){
             return resultadoConsulta;
