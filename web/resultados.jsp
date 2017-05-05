@@ -56,7 +56,6 @@
                             <% String preview = t[i];%>
                             <%String ruta = "libros/" + s[i];%>
                             
-                            
                             <li id="<%=nombre%>" onmouseover="showPreview('<%=nombre%>','<%=preview%>')" onmouseout="hidePreview('<%=nombre%>')">
                                 <i class="fa fa-book">&nbsp;</i><a href="<%=ruta%>" target="_blank"><b><%=nombre%></b></a>
                                 <a href=<%=ruta%> download="<%=ruta%>" target="_blank"><i class="fa fa-download w3-right"></i></a>
@@ -94,5 +93,5 @@
                     <div class="sk-cube sk-cube7"></div>
                     <div class="sk-cube sk-cube8"></div>
                     <div class="sk-cube sk-cube9"></div>
-                </div>                                  
+                </div>
     </body>
