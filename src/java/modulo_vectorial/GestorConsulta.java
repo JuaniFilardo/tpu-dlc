@@ -17,12 +17,13 @@ import modulo_persistencia.GestorPersistenciaGeneral;
  */
 public class GestorConsulta {
  
+    private static final GestorConsulta INSTANCIA = new GestorConsulta();
     ArrayList<Palabra> consulta;
     Vocabulario vocabulario;
     GestorPersistenciaGeneral gpg;
     int N;
     
-    public GestorConsulta() {
+    private GestorConsulta() {
         this.vocabulario = new Vocabulario();
         this.gpg = new GestorPersistenciaGeneral();
         this.vocabulario.cargarVocabulario(gpg.obtenerPalabrasArray());
@@ -35,6 +36,14 @@ public class GestorConsulta {
         this.gpg = new GestorPersistenciaGeneral();
         this.vocabulario.cargarVocabulario(gpg.obtenerPalabrasArray());
         this.obtenerN();
+    }
+    
+    /**
+     * Implementación del patrón Singleton
+     * @return La instancia del Singleton
+     */
+    public static GestorConsulta getInstancia() {
+        return INSTANCIA;
     }
     
     /**

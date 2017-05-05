@@ -25,7 +25,7 @@ import modulo_vectorial.GestorConsulta;
 @WebServlet(name = "Buscador", urlPatterns = {"/Buscador"})
 public class Buscador extends HttpServlet {
     
-    GestorConsulta gc = new GestorConsulta();
+    GestorConsulta gc = GestorConsulta.getInstancia();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

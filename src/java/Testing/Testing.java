@@ -19,7 +19,7 @@ import modulo_vectorial.GestorConsulta;
  */
 public class Testing extends javax.swing.JFrame {
 
-    private GestorConsulta gc = new GestorConsulta();
+    private GestorConsulta gc = GestorConsulta.getInstancia();
     /**
      * Creates new form Testing
      */
