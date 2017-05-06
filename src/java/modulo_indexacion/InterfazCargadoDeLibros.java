@@ -6,7 +6,6 @@
 package modulo_indexacion;
 import modulo_indexacion.GestorIndexacion;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -14,10 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import modulo_indexacion.Libro;
-import modulo_indexacion.Libro;
 import modulo_indexacion.Palabra;
-import modulo_indexacion.Palabra;
-import modulo_indexacion.Parser;
 import modulo_indexacion.Parser;
 
 

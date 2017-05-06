@@ -89,10 +89,6 @@ public class GestorConsulta {
         return Math.log(posteo.size()/N);
     }
 
-    private double obtenerPeso(Double idf) {
-        return Math.log(N);
-    }
-
     public ArrayList<Palabra> getConsulta() {
         return consulta;
     }
